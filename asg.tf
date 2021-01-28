@@ -9,12 +9,21 @@ resource "aws_autoscaling_group" "app_asg" {
   
   force_delete              = true
 
-  launch_configuration      = aws_launch_configuration.instance_app_template.name
   vpc_zone_identifier       = tolist([for subnet_id in aws_subnet.private_subnet: subnet_id.id ])
   target_group_arns = [aws_lb_target_group.tg_group_app.arn]
 
+  launch_template  {
+      name = aws_launch_template.instance_app_template.name
+  }         
+
   timeouts {
     delete = "15m"
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "asg-instance-app"
+    propagate_at_launch = true
   }
 
 }

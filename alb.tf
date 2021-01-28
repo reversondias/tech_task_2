@@ -40,10 +40,3 @@ resource "aws_lb_listener" "listner_app" {
     target_group_arn = aws_lb_target_group.tg_group_app.arn
   }
 }
-
-resource "aws_lb_target_group_attachment" "ec2_instances_attached" {
-  count = length(aws_instance.web_app)
-  target_group_arn = aws_lb_target_group.tg_group_app.arn
-  target_id        = aws_instance.web_app[count.index].id
-  port             = 80
-}

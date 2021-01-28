@@ -59,13 +59,13 @@ variable "count_instance" {
 variable "asg_max_size" {
   type = number
   description = "The max number of instance in ASG."
-  default = 1
+  default = 3
 }
 
 variable "asg_min_size" {
   type = number
   description = "The max number of instance in ASG."
-  default = 3
+  default = 1
 }
 
 variable "asg_desired_size" {

@@ -13,3 +13,6 @@ sudo ufw allow 'Apache'
 echo "Enable and start apache2 service by systemctl"
 sudo systemctl enable apache2
 sudo systemctl start apache2
+
+echo "Create index.html file on Apache root dir"
+echo "<h1>   It works</h1>" > /var/www/html/index.html

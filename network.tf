@@ -27,7 +27,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = "${var.default_region}${var.letters_to_zone[count.index]}"
 
   tags = {
-    Name = "Private Subnet-${var.letters_to_zone[count.index]}"
+    Name = "Private Subnet ${var.letters_to_zone[count.index]}"
   }
 }
 
@@ -38,13 +38,13 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = "${var.default_region}${var.letters_to_zone[count.index]}"
 
   tags = {
-    Name = "Public Subnet-${var.letters_to_zone[count.index]}"
+    Name = "Public Subnet ${var.letters_to_zone[count.index]}"
   }
 }
 
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.private_subnet[0].id
+  subnet_id     = aws_subnet.public_subnet[0].id
 
   tags = {
     Name = "Private Subnet Gatewat NAT"
@@ -56,7 +56,7 @@ resource "aws_route_table" "public_route" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gw.id
+    gateway_id = aws_internet_gateway.internet_gw.id
   }
 
   tags = {
@@ -69,7 +69,7 @@ resource "aws_route_table" "private_route" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gw.id
+    nat_gateway_id = aws_nat_gateway.nat_gw.id
   }
 
   tags = {

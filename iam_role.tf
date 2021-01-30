@@ -1,4 +1,4 @@
-resource "aws_iam_role" "s3-role" {
+resource "aws_iam_role" "s3_role" {
   name = "s3-access-role"
 
   assume_role_policy = <<-EOF
@@ -19,13 +19,18 @@ resource "aws_iam_role" "s3-role" {
 }
 
 resource "aws_iam_instance_profile" "ec2-acess-profile" {
-  name = aws_iam_role.s3-role.name
-  role = aws_iam_role.s3-role.name
+  name = aws_iam_role.s3_role.name
+  role = aws_iam_role.s3_role.name
 }
 
-resource "aws_iam_role_policy" "s3-role-policy" {
+resource "aws_iam_policy" "s3_role_policy" {
   name = "s3-access-role-policy"
-  role = aws_iam_role.s3-role.id
+  description = "This policy allow EC2 full access one bucket S3"
 
-  policy = templatefile("s3_policy_json_template.tpl", {aws_account_id = var.aws_account_id, s3_name = var.s3_name})
+  policy = templatefile("s3_policy_json_template.tpl", {s3_name = var.s3_name})
+}
+
+resource "aws_iam_role_policy_attachment" "policy_attach" {
+  role       = aws_iam_role.s3_role.name
+  policy_arn = aws_iam_policy.s3_role_policy.arn
 }

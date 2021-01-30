@@ -45,16 +45,6 @@ variable "s3_name" {
     description = "S3 name that EC2 will access."
 }
 
-variable "aws_account_id" {
-    type = string
-    description = "AWS account ID to build ARN string for grant access."
-}
-
-variable "count_instance" {
-  type = string
-  description = "The total instance."
-  default = ""
-}
 
 variable "asg_max_size" {
   type = number

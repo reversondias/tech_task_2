@@ -16,18 +16,4 @@ resource "aws_launch_template" "instance_app_template" {
   iam_instance_profile {
     name = aws_iam_instance_profile.ec2-acess-profile.name
   }
-
-  # network_interfaces {
-  #   delete_on_termination = true
-  #   subnet_id = aws_subnet.private_subnet[0].id
-  # }
-
-
-  # tag_specifications {
-  #   tags = {
-  #     Name = var.ec2_name
-  #   }
-  # }
-
-
 }

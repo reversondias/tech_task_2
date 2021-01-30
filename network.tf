@@ -27,7 +27,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = "${var.default_region}${var.letters_to_zone[count.index]}"
 
   tags = {
-    Name = "Private Subnet"
+    Name = "Private Subnet-${var.letters_to_zone[count.index]}"
   }
 }
 
@@ -38,7 +38,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = "${var.default_region}${var.letters_to_zone[count.index]}"
 
   tags = {
-    Name = "Public Subnet"
+    Name = "Public Subnet-${var.letters_to_zone[count.index]}"
   }
 }
 

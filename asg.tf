@@ -54,7 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "avg_cpu_utilization_in" {
   namespace           = "AWS/EC2"
   period              = "60"
   statistic           = "Average"
-  threshold           = "30"
+  threshold           = var.threshold_scale_in
 
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.app_asg.name
@@ -72,7 +72,7 @@ resource "aws_cloudwatch_metric_alarm" "avg_cpu_utilization_out" {
   namespace           = "AWS/EC2"
   period              = "60"
   statistic           = "Average"
-  threshold           = "20"
+  threshold           = var.threshold_scale_out
   treat_missing_dara  = "notBreaching"
 
   dimensions = {

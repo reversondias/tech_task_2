@@ -15,11 +15,11 @@ resource "aws_lb_target_group" "tg_group_app" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.company_vpc.id
   health_check {
-      interval = 35
+      interval = var.health_check_interval
       path = "/"
       port = 80
       protocol = "HTTP"
-      timeout = 30
+      timeout = var.health_check_timeout
       matcher = "200"
   }
 }
